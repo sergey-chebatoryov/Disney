@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main"
+        android:title="Main page" />
+    <item
+        android:id="@+id/search"
+        android:title="Search" />
+    <item
+        android:id="@+id/games"
+        android:title="MINI- Games" />
+    <item
+        android:id="@+id/invite"
+        android:title="Invite Friend" />
+    <item
+        android:id="@+id/saving"
+        android:title="My Saves" />
+    <item
+        android:id="@+id/music"
+        android:title="Music" />
+    <item
+        android:id="@+id/instructions"
+        android:title="Instructions" />
+    <item
+        android:id="@+id/about"
+        android:title="About the app" />
+    <item
+        android:id="@+id/exit"
+        android:title="Exit"/>
+</menu>

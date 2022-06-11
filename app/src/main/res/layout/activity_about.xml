@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".About"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#FFF9C4">
+    <TextView
+        android:textStyle="bold"
+        android:fontFamily="@font/writing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="About the app:"
+        android:textColor="@color/blue"
+        android:textSize="50sp" />
+
+    <TextView
+        android:fontFamily="@font/reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="HEY my friend, my name is Lilia \nand here I am to tell you about- \nDisney time which is the perfect application if you want to know what movie to choose!
+\nA collection of the best Disney movies trailers as well as mini games for fun!
+\nYou just choose a genre and a list of movies pops up for you to watch the trailer and decide which one to watch!
+\nShare with your friends the movies you have  chosen, and you better grab some popcorn 🍿 \nbecause with Disney time- \nevery night is movie night!"
+        android:textColor="#000000"
+        android:textSize="30sp" />
+
+    <Button
+        android:textStyle="bold"
+        android:fontFamily="@font/classic"
+        android:id="@+id/b_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goBack"
+        android:text="BACK" />
+</LinearLayout>

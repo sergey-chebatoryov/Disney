@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#FFF9C4"
+    tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lets start the fun"
+        android:textColor="@color/black"
+        android:fontFamily="@font/font"
+        android:textSize="40dp" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text"
+                android:fontFamily="@font/font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Are you a new friend?"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <Button
+                android:textStyle="bold"
+                android:fontFamily="@font/classic"
+                android:id="@+id/btnReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sign up"
+                android:onClick="goReg"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text1"
+                android:fontFamily="@font/font"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Are you already registered? \nwelcome back😊"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <Button
+                android:textStyle="bold"
+                android:fontFamily="@font/classic"
+                android:id="@+id/btnLog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sign in"
+                android:onClick="goLogin"/>
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/mickey" />
+    <TextView
+        android:gravity="center"
+        android:id="@+id/textView3"
+        android:fontFamily="@font/font"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:text="Remember to be kind and enjoy❤" />
+</LinearLayout>

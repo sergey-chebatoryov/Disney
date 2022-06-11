@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/icon_big"
+    tools:context=".LoginActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/heading"
+        android:fontFamily="@font/reg"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginBottom="50sp"/>
+    <GridLayout
+        android:background="@color/d_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:columnCount="2">
+
+        <TextView
+            android:layout_gravity="top"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:fontFamily="@font/writing"
+            android:text="@string/name"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etNameLogin"
+            android:textColor="@color/white"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:textSize="30dp" />
+        <TextView
+            android:layout_gravity="top"
+            android:fontFamily="@font/writing"
+            android:textStyle="bold"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            android:textSize="30sp"
+            android:textColor="@color/white"/>
+
+        <EditText
+            android:id="@+id/etPasswordLogin"
+            android:textColor="@color/white"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:inputType="numberPassword"
+            android:textSize="30sp" />
+    </GridLayout>
+    <Button
+        android:textStyle="bold"
+        android:fontFamily="@font/classic"
+        android:id="@+id/btnGoLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="sign in" />
+    <Button
+        android:id="@+id/b_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goBack"
+        android:text="BACK" />
+</LinearLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Movie_Search"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#FFF9C4">
+    <TextView
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/reg"
+        android:textSize="40sp"
+        android:textColor="@color/blue"
+        android:text="Search movie:"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_gravity="left"
+        android:fontFamily="@font/reg"
+        android:textSize="30sp"
+        android:textColor="@color/blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Select your genre: "/>
+
+    <RadioGroup
+        android:id="@+id/rd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/RadioButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/reg"
+            android:textSize="25dp"
+            android:text="Comedy" />
+
+        <RadioButton
+            android:id="@+id/RadioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/reg"
+            android:textSize="25dp"
+            android:text="Fantasy" />
+
+        <RadioButton
+            android:id="@+id/RadioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/reg"
+            android:textSize="25dp"
+            android:text="Horror" />
+
+        <RadioButton
+            android:id="@+id/RadioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/reg"
+            android:textSize="25dp"
+            android:text="Romance" />
+
+        <RadioButton
+            android:id="@+id/RadioButton5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/reg"
+            android:textSize="25dp"
+            android:text="Action" />
+
+        <RadioButton
+            android:id="@+id/RadioButton6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/reg"
+            android:textSize="25dp"
+            android:text="Drama" />
+    </RadioGroup>
+
+    <Button
+        android:onClick="goShow"
+        android:textStyle="bold"
+        android:fontFamily="@font/classic"
+        android:id="@+id/b_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="submit" />
+
+    <Button
+        android:textStyle="bold"
+        android:fontFamily="@font/classic"
+        android:id="@+id/b_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goBack"
+        android:text="BACK" />
+</LinearLayout>

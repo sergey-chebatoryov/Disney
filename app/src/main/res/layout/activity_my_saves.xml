@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".My_Saves"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#FFF9C4">
+    <TextView
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:textColor="@color/blue"
+        android:fontFamily="@font/reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="My Saves:"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="539dp"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/lvSales1"
+            android:layout_width="150dp"
+            android:layout_height="582dp"
+            android:layout_weight="1"
+            android:divider="@color/black"
+            android:dividerHeight="2dp" />
+        <ListView
+            android:id="@+id/lvSales2"
+            android:layout_width="150dp"
+            android:layout_height="582dp"
+            android:layout_weight="1"
+            android:divider="@color/black"
+            android:dividerHeight="2dp" />
+    </LinearLayout>
+    <Button
+        android:textStyle="bold"
+        android:fontFamily="@font/classic"
+        android:onClick="goBack"
+        android:id="@+id/b_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BACK" />
+</LinearLayout>

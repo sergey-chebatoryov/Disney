@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MINI_Games"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#FFF9C4">
+    <TextView
+        android:textStyle="bold"
+        android:fontFamily="@font/reg"
+        android:textSize="40sp"
+        android:textColor="@color/blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MINI games:"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:fontFamily="@font/reg"
+        android:textSize="30sp"
+        android:textColor="@color/blue"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Randomizer for you:" />
+
+    <Button
+        android:gravity="left"
+        android:fontFamily="@font/disney"
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Which princess are you?"
+        android:onClick="goPlay1"/>
+    <Button
+        android:gravity="left"
+        android:fontFamily="@font/disney"
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Which disney character are you?"
+        android:onClick="goPlay2"/>
+    <Button
+        android:gravity="left"
+        android:fontFamily="@font/disney"
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Which role suits you the best?"
+        android:onClick="goPlay3"/>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/disney"
+        android:gravity="left"
+        android:onClick="goPlay4"
+        android:text="What you should eat while watching?"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/playing" />
+
+    <Button
+        android:textStyle="bold"
+        android:fontFamily="@font/classic"
+        android:id="@+id/b_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goBack"
+        android:text="BACK" />
+</LinearLayout>
