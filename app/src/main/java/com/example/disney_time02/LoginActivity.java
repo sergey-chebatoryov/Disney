@@ -1,9 +1,5 @@
 package com.example.disney_time02;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private SQLiteDatabase database;
@@ -50,9 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return;
             }
             if (!isFound(data[0], data[1])) {
-                Toast.makeText(this, "User not found, try again!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                Toast.makeText(this, "Wrong credentials, try again!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Welcome my friend!",
                         Toast.LENGTH_SHORT).show();
@@ -60,7 +58,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
             }
         }
-        this.etName.setText("");
         this.etPassword.setText("");
     }
     private boolean isEmpty(){
@@ -77,23 +74,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return count == 0;
     }
     private boolean isFound(String name, String password){
-        boolean flag = false;
-        this.database = this.dbHelper.getWritableDatabase();
-        Cursor cursor = database.query(this.dbHelper.TABLE_NAME, null, null, null, null,
-                null, null);
-        int column1 = cursor.getColumnIndex(this.dbHelper.USERNAME);
-        int column2 = cursor.getColumnIndex(this.dbHelper.PASSWORD);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast() && !flag) {
-            String baseName = cursor.getString(column1);
-            String basePassword = cursor.getString(column2);
-            flag = name.equals(baseName) && password.equals(basePassword);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        this.database.close();
-        return flag;
+        MysqlConnect mysqlConnect = new MysqlConnect();
+        mysqlConnect.selectUser("select * from users where name='" + name + "'");
+        String resultSelectUser = mysqlConnect.getResultSelectUser();
+        return resultSelectUser != null && Encryption.verify(password, resultSelectUser);
     }
+
     private boolean isValid(){
         String message = "";
         String name = this.etName.getText().toString();
