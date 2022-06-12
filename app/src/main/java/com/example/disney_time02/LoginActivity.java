@@ -19,6 +19,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SQLiteDatabase database;
     private dbHelper dbHelper;
     private EditText etName, etPassword;
+    public static String userName;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (!isFound(data[0], data[1])) {
                 Toast.makeText(this, "Wrong credentials, try again!", Toast.LENGTH_SHORT).show();
             } else {
+                userName = data[0];
                 Toast.makeText(this, "Welcome my friend!",
                         Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, StartActivity.class);

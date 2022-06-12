@@ -3,7 +3,6 @@ package com.example.disney_time02;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +17,6 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
     RecyclerView recyclerView;
     MyRecyclerViewAdapter adapter;
     Map<Integer, Map<String, String>> moviesMap;
-    String genre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +26,7 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
     }
 
     private void selectMovie() {
-        genre = getIntent().getExtras().getString("genre", "");
+        String genre = getIntent().getExtras().getString("genre", "");
         MysqlConnect mysqlConnect = new MysqlConnect();
         mysqlConnect.select("select * from movies where genre='" + genre + "'");
         moviesMap = mysqlConnect.getResultSelect();
@@ -47,15 +45,19 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Movie_Page.class).putExtra("genre", genre);
+        Intent intent = new Intent(this, Movie_Page.class);
+
         Map<String, String> row = moviesMap.get(position);
+        String genre = Objects.requireNonNull(row).get("genre");
         String movieName = Objects.requireNonNull(row).get("name");
         String url = Objects.requireNonNull(row).get("trailer");
+        String movieId = Objects.requireNonNull(row).get("id");
+
+        intent.putExtra("genre", genre);
         intent.putExtra("movieName", movieName);
         intent.putExtra("url", url);
+        intent.putExtra("movieId", movieId);
         startActivity(intent);
-
     }
 
     public void goBack(View view) {
