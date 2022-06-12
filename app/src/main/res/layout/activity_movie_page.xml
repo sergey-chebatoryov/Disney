@@ -87,7 +87,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonPlay"
         android:text="play"/>
-    <Switch
+
+    <androidx.appcompat.widget.SwitchCompat
         android:textSize="40dp"
         android:fontFamily="@font/classic"
         android:textStyle="bold"
