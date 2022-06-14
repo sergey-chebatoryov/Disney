@@ -1,7 +1,5 @@
 package com.example.disney_time02;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.mysql.jdbc.Connection;
 
 import java.sql.DriverManager;
@@ -11,10 +9,10 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MysqlConnect extends AppCompatActivity {
-    private static final String URL = "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6498100";
-    private static final String USER = "sql6498100";
-    private static final String PASSWORD = "jN3sV9fjuu";
+public class MysqlConnect {
+    private static final String URL = "jdbc:mysql://remotemysql.com:3306/tXlqRJzGk9";
+    private static final String USER = "tXlqRJzGk9";
+    private static final String PASSWORD = "fe045fDKSp";
     private String sql;
     private Map<Integer, Map<String, String>> resultSelect;
     private int resultInsert;

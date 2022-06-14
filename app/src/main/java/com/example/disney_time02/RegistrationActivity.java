@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +21,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private dbHelper dbHelper;
     private Button btnGoReg;
     private EditText etName, etPassword;
-    private User user;
+    AlertDialog dialog;
+    Runnable runnable = () -> {Looper.prepare();registration();};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         this.btnGoReg.setOnClickListener(this);
         this.etName = findViewById(R.id.etName);
         this.etPassword = findViewById(R.id.etPassword);
+        if (LoginActivity.userName!=null) {
+            this.etPassword.requestFocus();
+        } else {
+            this.etName.requestFocus();
+        }
         setActionBar("Sign up");
     }
 
@@ -44,6 +51,17 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false); // if you want user to wait for some process to finish,
+        builder.setView(R.layout.layout_loading_dialog);
+        dialog = builder.create();
+        dialog.show();
+
+        Thread thread = new Thread(runnable);
+        thread.start();
+    }
+
+    private void registration() {
         if (isValid()) {
             String[] data = new String[2];
             data[0] = this.etName.getText().toString();
@@ -57,6 +75,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             if (mysqlConnect.getResultInsert() == 0) {
                 Toast.makeText(RegistrationActivity.this, "User does not created. Try Again", Toast.LENGTH_SHORT).show();
             } else {
+                LoginActivity.userName = data[0];
                 Toast.makeText(this, "You sign up", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
@@ -64,7 +83,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         } else {
             Toast.makeText(RegistrationActivity.this, "Try Again", Toast.LENGTH_SHORT).show();
         }
+        dialog.dismiss();
     }
+
 
 
     private boolean isFound(String name, String password) {

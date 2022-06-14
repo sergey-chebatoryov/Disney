@@ -1,12 +1,14 @@
 package com.example.disney_time02;
 
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,9 @@ public class Movie_Page extends AppCompatActivity {
     Vector<youTubeVideos> youtubeVideos = new Vector<>();
     private String movieId;
     private String movieName;
+    AlertDialog dialog;
+    Runnable runnable = () -> {
+        Looper.prepare();saveMovie();};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +63,25 @@ public class Movie_Page extends AppCompatActivity {
     }
 
     public void save(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false); // if you want user to wait for some process to finish,
+
+        builder.setView(R.layout.layout_loading_dialog);
+        dialog = builder.create();
+        dialog.show();
+
+        new Thread(runnable).start();
+    }
+
+    private void saveMovie() {
         MysqlConnect mysqlConnect = new MysqlConnect();
         mysqlConnect.insert("insert into usersmovie (name, id) values ('"
                 + LoginActivity.userName + "', '" + movieId + "')");
         if (mysqlConnect.getResultInsert() > 0) {
             Toast.makeText(this, "Movie " + movieName + " added", Toast.LENGTH_SHORT).show();
         }
+        dialog.dismiss();
     }
+
+
 }

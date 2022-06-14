@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/reg"
+            android:textColor="@color/black"
             android:textSize="25dp"
             android:text="Comedy" />
 
@@ -48,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/reg"
+            android:textColor="@color/black"
             android:textSize="25dp"
             android:text="Fantasy" />
 
@@ -56,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/reg"
+            android:textColor="@color/black"
             android:textSize="25dp"
             android:text="Horror" />
 
@@ -64,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/reg"
+            android:textColor="@color/black"
             android:textSize="25dp"
             android:text="Romance" />
 
@@ -72,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/reg"
+            android:textColor="@color/black"
             android:textSize="25dp"
             android:text="Action" />
 
@@ -80,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/reg"
+            android:textColor="@color/black"
             android:textSize="25dp"
             android:text="Drama" />
     </RadioGroup>

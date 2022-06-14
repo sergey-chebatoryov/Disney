@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,11 +16,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private SQLiteDatabase database;
     private dbHelper dbHelper;
     private EditText etName, etPassword;
     public static String userName;
+    AlertDialog dialog;
+    Runnable runnable = () -> {Looper.prepare();login();};
 
 
     @Override
@@ -33,6 +38,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnGoLog.setOnClickListener(this);
         this.etName = findViewById(R.id.etNameLogin);
         this.etPassword = findViewById(R.id.etPasswordLogin);
+        this.etName.setText(LoginActivity.userName);
+        if (LoginActivity.userName!=null && !Objects.equals(LoginActivity.userName, "")) {
+            this.etPassword.requestFocus();
+        }
         setActionBar("Sign in");
     }
     public void setActionBar(String heading) {
@@ -42,6 +51,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onClick(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false); // if you want user to wait for some process to finish,
+
+        builder.setView(R.layout.layout_loading_dialog);
+        dialog = builder.create();
+        dialog.show();
+
+        new Thread(runnable).start();
+    }
+
+
+    private void login() {
         String[] data = new String[2];
         data[0] = this.etName.getText().toString();
         data[1] = this.etPassword.getText().toString();
@@ -56,14 +77,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(this, "Wrong credentials, try again!", Toast.LENGTH_SHORT).show();
             } else {
                 userName = data[0];
-                Toast.makeText(this, "Welcome my friend!",
-                        Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, StartActivity.class);
-                startActivity(intent);
+                Toast.makeText(this, "Welcome my friend!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, StartActivity.class);
+                    startActivity(intent);
             }
         }
         this.etPassword.setText("");
     }
+
     private boolean isEmpty(){
         this.database = this.dbHelper.getWritableDatabase();
         int count = 0;
@@ -81,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         MysqlConnect mysqlConnect = new MysqlConnect();
         mysqlConnect.selectUser("select * from users where name='" + name + "'");
         String resultSelectUser = mysqlConnect.getResultSelectUser();
+        dialog.dismiss();
         return resultSelectUser != null && Encryption.verify(password, resultSelectUser);
     }
 
