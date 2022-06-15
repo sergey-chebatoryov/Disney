@@ -22,7 +22,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private Button btnGoReg;
     private EditText etName, etPassword;
     AlertDialog dialog;
-    Runnable runnable = () -> {Looper.prepare();registration();};
+    Runnable runnable = () -> {
+        Looper.prepare();
+        registration();
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         this.btnGoReg.setOnClickListener(this);
         this.etName = findViewById(R.id.etName);
         this.etPassword = findViewById(R.id.etPassword);
-        if (LoginActivity.userName!=null) {
+        if (LoginActivity.userName != null) {
+            this.etName.setText(LoginActivity.userName);
             this.etPassword.requestFocus();
         } else {
             this.etName.requestFocus();
@@ -70,9 +74,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             this.etName.setText("");
             this.etPassword.setText("");
             MysqlConnect mysqlConnect = new MysqlConnect();
-            mysqlConnect.insert("insert into users (name, password) values ('"
+            int insert = mysqlConnect.insert("insert into users (name, password) values ('"
                     + data[0] + "', '" + encryptedPassword + "')");
-            if (mysqlConnect.getResultInsert() == 0) {
+            if (insert == 0) {
                 Toast.makeText(RegistrationActivity.this, "User does not created. Try Again", Toast.LENGTH_SHORT).show();
             } else {
                 LoginActivity.userName = data[0];
@@ -85,7 +89,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
         dialog.dismiss();
     }
-
 
 
     private boolean isFound(String name, String password) {

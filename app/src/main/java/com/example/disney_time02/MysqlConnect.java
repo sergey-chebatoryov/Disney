@@ -1,7 +1,6 @@
 package com.example.disney_time02;
 
-import com.mysql.jdbc.Connection;
-
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,52 +12,9 @@ public class MysqlConnect {
     private static final String URL = "jdbc:mysql://remotemysql.com:3306/tXlqRJzGk9";
     private static final String USER = "tXlqRJzGk9";
     private static final String PASSWORD = "fe045fDKSp";
-    private String sql;
-    private Map<Integer, Map<String, String>> resultSelect;
-    private int resultInsert;
-    private String resultPassword;
 
-    protected enum SqlMode {
-        selectMovie, selectUser, insert
-    }
-
-    public void select(String sql) {
-        this.sql = sql;
-        resultSelect = new HashMap<>();
-        Thread threadExecution = new SampleThread(SqlMode.selectMovie);
-        threadExecution.start();
-        try {
-            threadExecution.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void selectUser(String sql) {
-        this.sql = sql;
-        resultSelect = new HashMap<>();
-        Thread threadExecution = new SampleThread(SqlMode.selectUser);
-        threadExecution.start();
-        try {
-            threadExecution.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void insert(String sql) {
-        this.sql = sql;
-        resultSelect = new HashMap<>();
-        Thread threadExecution = new SampleThread(SqlMode.insert);
-        threadExecution.start();
-        try {
-            threadExecution.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected void executeSelect() {
+    public Map<Integer, Map<String, String>> select(String sql) {
+        Map<Integer, Map<String, String>> resultSelect = new HashMap<>();
         try (Connection connection = (Connection) DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
@@ -74,67 +30,29 @@ public class MysqlConnect {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return resultSelect;
     }
 
-    protected void executeSelectUser() {
-        resultPassword = null;
+    public String selectUser(String sql) {
         try (Connection connection = (Connection) DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                resultPassword = resultSet.getString("password");
+                return resultSet.getString("password");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    protected void executeInsert() {
-        resultInsert = 0;
-        try (Connection connection = (Connection) DriverManager.getConnection(URL, USER, PASSWORD)) {
+    public int insert(String sql) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
-            resultInsert = statement.executeUpdate();
+            return statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public Map<Integer, Map<String, String>> getResultSelect() {
-        return resultSelect;
-    }
-
-    public String getResultSelectUser() {
-        return resultPassword;
-    }
-
-    public int getResultInsert() {
-        return resultInsert;
-    }
-
-    class SampleThread extends Thread {
-        private final SqlMode sqlMode;
-
-        SampleThread(SqlMode sqlMode) {
-            this.sqlMode = sqlMode;
-        }
-
-        @Override
-        public void run() {
-            switch (sqlMode) {
-                case selectMovie:
-                    executeSelect();
-                    break;
-                case selectUser:
-                    executeSelectUser();
-                    break;
-                case insert:
-                    executeInsert();
-                    break;
-                default:
-                    break;
-            }
-        }
+        return 0;
     }
 }
-
-

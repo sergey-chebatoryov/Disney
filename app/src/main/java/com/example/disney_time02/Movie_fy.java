@@ -48,8 +48,7 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
     private void selectMovie() {
         String genre = getIntent().getExtras().getString("genre", "");
         MysqlConnect mysqlConnect = new MysqlConnect();
-        mysqlConnect.select("select * from movies where genre='" + genre + "'");
-        moviesMap = mysqlConnect.getResultSelect();
+        moviesMap = mysqlConnect.select("select * from movies where genre='" + genre + "'");
         Collection<Map<String, String>> rows = moviesMap.values();
         for (Map<String, String> row : rows) {
             rowsString.add(row.get("name") + " " + row.get("trailer"));

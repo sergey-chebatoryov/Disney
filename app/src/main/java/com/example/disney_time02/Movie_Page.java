@@ -23,7 +23,9 @@ public class Movie_Page extends AppCompatActivity {
     private String movieName;
     AlertDialog dialog;
     Runnable runnable = () -> {
-        Looper.prepare();saveMovie();};
+        Looper.prepare();
+        saveMovie();
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +77,11 @@ public class Movie_Page extends AppCompatActivity {
 
     private void saveMovie() {
         MysqlConnect mysqlConnect = new MysqlConnect();
-        mysqlConnect.insert("insert into usersmovie (name, id) values ('"
+        int insert = mysqlConnect.insert("insert into usersmovie (name, id) values ('"
                 + LoginActivity.userName + "', '" + movieId + "')");
-        if (mysqlConnect.getResultInsert() > 0) {
+        if (insert > 0) {
             Toast.makeText(this, "Movie " + movieName + " added", Toast.LENGTH_SHORT).show();
         }
         dialog.dismiss();
     }
-
-
 }
