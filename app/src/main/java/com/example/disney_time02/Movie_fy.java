@@ -35,10 +35,9 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
         adapter.setClickListener((MyRecyclerViewAdapter.ItemClickListener) this);
         recyclerView.setAdapter(adapter);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false); // if you want user to wait for some process to finish,
-        builder.setView(R.layout.layout_loading_dialog);
-        dialog = builder.create();
+        dialog = new AlertDialog.Builder(this)
+                .setView(R.layout.layout_loading_dialog)
+                .setTitle("Searching movies...").create();
         dialog.show();
 
         Thread thread = new Thread(runnable);

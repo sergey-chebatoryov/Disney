@@ -55,10 +55,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false); // if you want user to wait for some process to finish,
-        builder.setView(R.layout.layout_loading_dialog);
-        dialog = builder.create();
+        dialog = new AlertDialog.Builder(this)
+                .setView(R.layout.layout_loading_dialog)
+                .setTitle("Registration...").create();
         dialog.show();
 
         Thread thread = new Thread(runnable);

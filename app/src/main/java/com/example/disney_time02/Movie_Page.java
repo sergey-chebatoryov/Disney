@@ -65,11 +65,9 @@ public class Movie_Page extends AppCompatActivity {
     }
 
     public void save(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false); // if you want user to wait for some process to finish,
-
-        builder.setView(R.layout.layout_loading_dialog);
-        dialog = builder.create();
+        dialog = new AlertDialog.Builder(this)
+                .setView(R.layout.layout_loading_dialog)
+                .create();
         dialog.show();
 
         new Thread(runnable).start();

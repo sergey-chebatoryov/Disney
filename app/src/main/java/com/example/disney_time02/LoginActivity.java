@@ -56,11 +56,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false); // if you want user to wait for some process to finish,
-
-        builder.setView(R.layout.layout_loading_dialog);
-        dialog = builder.create();
+        dialog = new AlertDialog.Builder(this)
+                .setView(R.layout.layout_loading_dialog)
+                .setTitle("Login...").create();
         dialog.show();
 
         new Thread(runnable).start();
@@ -72,12 +70,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         data[0] = this.etName.getText().toString();
         data[1] = this.etPassword.getText().toString();
         if (isValid()) {
-            if (isEmpty()) {
-                Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                return;
-            }
+//            if (isEmpty()) {
+//                Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(this, MainActivity.class);
+//                startActivity(intent);
+//                return;
+//            }
             if (!isFound(data[0], data[1])) {
                 Toast.makeText(this, "Wrong credentials, try again!", Toast.LENGTH_SHORT).show();
             } else {
