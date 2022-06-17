@@ -20,14 +20,11 @@ public class Movie_Page extends AppCompatActivity {
     private String movieId;
     private String movieName;
     boolean switchChecked;
+    SwitchCompat switchCompat;
     AlertDialog dialog;
     Runnable runnableSave = () -> {
         Looper.prepare();
         saveMovie();
-    };
-    Runnable runnableCheck = () -> {
-        Looper.prepare();
-        checkMovie();
     };
 
     @Override
@@ -45,43 +42,31 @@ public class Movie_Page extends AppCompatActivity {
         EditText edMovieName = findViewById(R.id.editTextId);
         edMovieName.setText(movieName);
 
+        //Save movie ID
+        movieId = getIntent().getExtras().getString("movieId", "");
+        switchCompat = findViewById(R.id.save);
+
+        //Get movie saved in database
+        String savedMovie = getIntent().getExtras().getString("savedMovie");
+        switchCompat.setChecked(savedMovie != null);
+        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> save(isChecked));
+
         prepareMovieView();
-
-        prepareSwitchView();
-
     }
 
     private void prepareMovieView() {
         String movieUrl = getIntent().getExtras().getString("url", "");
-        movieId = getIntent().getExtras().getString("movieId", "");
 
         String url = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" +
                 getId(movieUrl) + "\" frameborder=\"0\" allowfullscreen></iframe>";
 
         recyclerView = findViewById(R.id.trailerView);
+        recyclerView.requestFocus();
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         youtubeVideos.add(new youTubeVideos(url));
         VideoAdapter videoAdapter = new VideoAdapter(youtubeVideos);
         recyclerView.setAdapter(videoAdapter);
-        recyclerView.requestFocus();
-    }
-
-    private void prepareSwitchView() {
-        dialog = new AlertDialog.Builder(this)
-                .setView(R.layout.layout_loading_dialog)
-                .create();
-        dialog.show();
-        new Thread(runnableCheck).start();
-    }
-
-    private void checkMovie() {
-        MysqlConnect mysqlConnect = new MysqlConnect();
-        String result = mysqlConnect.selectColumn("select name from usersmovie where name='" + LoginActivity.userName + "' and id=" + movieId, "name");
-        SwitchCompat switchCompat = findViewById(R.id.save);
-        switchCompat.setChecked(result != null);
-        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> save(isChecked));
-        dialog.dismiss();
     }
 
     public void save(boolean isChecked) {
@@ -107,7 +92,9 @@ public class Movie_Page extends AppCompatActivity {
         MysqlConnect mysqlConnect = new MysqlConnect();
         int result = mysqlConnect.executeSql(sql);
         if (result > 0) {
-            Toast.makeText(this, "Movie " + movieName + " added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    "Movie " + movieName + (switchChecked ? " added to" : " removed from") + " your favorites",
+                    Toast.LENGTH_SHORT).show();
         }
         dialog.dismiss();
     }

@@ -21,6 +21,9 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
     ArrayList<String> rowsString;
     AlertDialog dialog;
     Runnable runnable = this::selectMovie;
+    Runnable runnableCheck = this::checkMovie;
+    private Integer position;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,7 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         rowsString = new ArrayList<>();
         adapter = new MyRecyclerViewAdapter(this, rowsString);
-        adapter.setClickListener((MyRecyclerViewAdapter.ItemClickListener) this);
+        adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
         dialog = new AlertDialog.Builder(this)
@@ -56,21 +59,37 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
         dialog.dismiss();
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-        Intent intent = new Intent(this, Movie_Page.class);
-
+    private void checkMovie() {
         Map<String, String> row = moviesMap.get(position);
         String genre = Objects.requireNonNull(row).get("genre");
         String movieName = Objects.requireNonNull(row).get("name");
         String url = Objects.requireNonNull(row).get("trailer");
         String movieId = Objects.requireNonNull(row).get("id");
+        MysqlConnect mysqlConnect = new MysqlConnect();
 
+        String result = mysqlConnect.selectColumn("select name from usersmovie where name='" + LoginActivity.userName + "' and id=" + movieId, "name");
+
+        Intent intent = new Intent(this, Movie_Page.class);
         intent.putExtra("genre", genre)
                 .putExtra("movieName", movieName)
                 .putExtra("url", url)
-                .putExtra("movieId", movieId);
+                .putExtra("movieId", movieId)
+                .putExtra("savedMovie", result);
         startActivity(intent);
+
+        dialog.dismiss();
+    }
+
+
+    @Override
+    public void onItemClick(View view, int position) {
+        this.position = position;
+        dialog = new AlertDialog.Builder(this)
+                .setView(R.layout.layout_loading_dialog)
+                .create();
+        dialog.show();
+        new Thread(runnableCheck).start();
+
     }
 
     public void goBack(View view) {
