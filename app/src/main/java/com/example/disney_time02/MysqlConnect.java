@@ -33,12 +33,12 @@ public class MysqlConnect {
         return resultSelect;
     }
 
-    public String selectUser(String sql) {
+    public String selectColumn(String sql, String returnColumnName) {
         try (Connection connection = (Connection) DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getString("password");
+                return resultSet.getString(returnColumnName);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class MysqlConnect {
         return null;
     }
 
-    public int insert(String sql) {
+    public int executeSql(String sql) {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             return statement.executeUpdate();
