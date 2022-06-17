@@ -51,29 +51,34 @@ public class Movie_Page extends AppCompatActivity {
         switchCompat.setChecked(savedMovie != null);
         switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> save(isChecked));
 
-        prepareMovieView();
+        //Create and show spinner dialog
+        dialog = new AlertDialog.Builder(this)
+                .setView(R.layout.layout_loading_dialog)
+                .create();
+        dialog.show();
+        //Insert move to movie box with spinner
+        recyclerView = findViewById(R.id.trailerView);
+        recyclerView.requestFocus();
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        new Thread(this::prepareMovieView).start();
     }
 
     private void prepareMovieView() {
+
         String movieUrl = getIntent().getExtras().getString("url", "");
 
         String url = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" +
                 getId(movieUrl) + "\" frameborder=\"0\" allowfullscreen></iframe>";
 
-        recyclerView = findViewById(R.id.trailerView);
-        recyclerView.requestFocus();
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         youtubeVideos.add(new youTubeVideos(url));
         VideoAdapter videoAdapter = new VideoAdapter(youtubeVideos);
         recyclerView.setAdapter(videoAdapter);
+        dialog.dismiss();
     }
 
     public void save(boolean isChecked) {
         this.switchChecked = isChecked;
-        dialog = new AlertDialog.Builder(this)
-                .setView(R.layout.layout_loading_dialog)
-                .create();
         dialog.show();
         new Thread(runnableSave).start();
     }
@@ -90,8 +95,7 @@ public class Movie_Page extends AppCompatActivity {
             sql = " delete from usersmovie where name='" + LoginActivity.userName + "' and id=" + movieId;
         }
         MysqlConnect mysqlConnect = new MysqlConnect();
-        int result = mysqlConnect.executeSql(sql);
-        if (result > 0) {
+        if (mysqlConnect.executeSql(sql) > 0) {
             Toast.makeText(this,
                     "Movie " + movieName + (switchChecked ? " added to" : " removed from") + " your favorites",
                     Toast.LENGTH_SHORT).show();

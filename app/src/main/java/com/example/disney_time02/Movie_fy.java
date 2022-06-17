@@ -20,8 +20,6 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
     Map<Integer, Map<String, String>> moviesMap;
     ArrayList<String> rowsString;
     AlertDialog dialog;
-    Runnable runnable = this::selectMovie;
-    Runnable runnableCheck = this::checkMovie;
     private Integer position;
 
 
@@ -43,8 +41,7 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
                 .setTitle("Searching movies...").create();
         dialog.show();
 
-        Thread thread = new Thread(runnable);
-        thread.start();
+        new Thread(this::selectMovie).start();
     }
 
     private void selectMovie() {
@@ -84,11 +81,8 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
     @Override
     public void onItemClick(View view, int position) {
         this.position = position;
-        dialog = new AlertDialog.Builder(this)
-                .setView(R.layout.layout_loading_dialog)
-                .create();
         dialog.show();
-        new Thread(runnableCheck).start();
+        new Thread(this::checkMovie).start();
 
     }
 

@@ -60,8 +60,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 .setTitle("Registration...").create();
         dialog.show();
 
-        Thread thread = new Thread(runnable);
-        thread.start();
+        new Thread(runnable).start();
     }
 
     private void registration() {
