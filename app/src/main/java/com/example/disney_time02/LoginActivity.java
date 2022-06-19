@@ -80,6 +80,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(this, "Wrong credentials, try again!", Toast.LENGTH_SHORT).show();
             } else {
                 userName = data[0];
+                getSharedPreferences("credentials", MODE_PRIVATE)
+                        .edit()
+                        .putString("userName", data[0])
+                        .putString("passwordHash", Encryption.encrypt(data[1]))
+                        .apply();
+
                 Toast.makeText(this, "Welcome my friend!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, StartActivity.class);
                 startActivity(intent);

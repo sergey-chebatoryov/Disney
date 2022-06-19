@@ -1,16 +1,21 @@
 package com.example.disney_time02;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnLog, btnReg;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +24,31 @@ public class MainActivity extends AppCompatActivity {
         this.btnLog = findViewById(R.id.btnLog);
         this.btnReg = findViewById(R.id.btnReg);
         setActionBar("Welcome to Disney Time!");
+
+        //Check saved credentials
+        dialog = new AlertDialog.Builder(this)
+                .setView(R.layout.layout_loading_dialog)
+                .setTitle("Login...").create();
+        dialog.show();
+        new Thread(this::checkCredentials).start();
     }
+
+    private void checkCredentials() {
+        SharedPreferences sharedPreferences = getSharedPreferences("credentials", MODE_PRIVATE);
+        String userName = sharedPreferences.getString("userName", "");
+        String passwordHash = sharedPreferences.getString("passwordHash", "");
+        if (!Objects.equals(userName, "")) {
+            MysqlConnect mysqlConnect = new MysqlConnect();
+            String resultSelectUser = mysqlConnect.selectColumn("select * from users where name='" + userName + "'", "password");
+            if (resultSelectUser != null && Objects.equals(passwordHash, resultSelectUser)) {
+                LoginActivity.userName = userName;
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+            }
+        }
+        dialog.dismiss();
+    }
+
 
     public void setActionBar(String heading) {
         ActionBar actionBar = getSupportActionBar();
