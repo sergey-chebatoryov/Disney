@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         String passwordHash = sharedPreferences.getString("passwordHash", "");
         if (!Objects.equals(userName, "")) {
             MysqlConnect mysqlConnect = new MysqlConnect();
-            String resultSelectUser = mysqlConnect.selectColumn("select * from users where name='" + userName + "'", "password");
+            String resultSelectUser = mysqlConnect.selectColumn("select * from users where name='" + userName + "'",
+                    "password", this);
             if (resultSelectUser != null && Objects.equals(passwordHash, resultSelectUser)) {
                 LoginActivity.userName = userName;
                 Intent intent = new Intent(this, StartActivity.class);
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         }
         dialog.dismiss();
     }
-
 
     public void setActionBar(String heading) {
         ActionBar actionBar = getSupportActionBar();

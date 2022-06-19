@@ -69,6 +69,11 @@
         </activity>
 
         <service android:name=".MyService" />
+
+        <meta-data
+            android:name = "keyValue"
+            android:value = "${KEY}"/>
+
     </application>
 
 </manifest>

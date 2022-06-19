@@ -73,7 +73,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             this.etPassword.setText("");
             MysqlConnect mysqlConnect = new MysqlConnect();
             int insert = mysqlConnect.executeSql("insert into users (name, password) values ('"
-                    + data[0] + "', '" + encryptedPassword + "')");
+                    + data[0] + "', '" + encryptedPassword + "')", this);
             if (insert == 0) {
                 Toast.makeText(RegistrationActivity.this, "User does not created. Try Again", Toast.LENGTH_SHORT).show();
             } else {

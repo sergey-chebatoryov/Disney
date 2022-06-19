@@ -111,7 +111,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean isFound(String name, String password) {
         MysqlConnect mysqlConnect = new MysqlConnect();
-        String resultSelectUser = mysqlConnect.selectColumn("select * from users where name='" + name + "'", "password" );
+        String resultSelectUser = mysqlConnect.selectColumn("select * from users where name='" + name + "'",
+                "password", this);
         return resultSelectUser != null && Encryption.verify(password, resultSelectUser);
     }
 

@@ -95,7 +95,7 @@ public class Movie_Page extends AppCompatActivity {
             sql = " delete from usersmovie where name='" + LoginActivity.userName + "' and id=" + movieId;
         }
         MysqlConnect mysqlConnect = new MysqlConnect();
-        if (mysqlConnect.executeSql(sql) > 0) {
+        if (mysqlConnect.executeSql(sql, this) > 0) {
             Toast.makeText(this,
                     "Movie " + movieName + (switchChecked ? " added to" : " removed from") + " your favorites",
                     Toast.LENGTH_SHORT).show();
