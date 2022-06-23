@@ -18,7 +18,7 @@ public class MysqlConnect {
 
     public Map<Integer, Map<String, String>> select(String sql, Context ctx) {
         Map<Integer, Map<String, String>> resultSelect = new HashMap<>();
-        try (Connection connection = (Connection) DriverManager.getConnection(URL, USER, getPassword(ctx))) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, getPassword(ctx))) {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             int i = 0;
@@ -51,7 +51,7 @@ public class MysqlConnect {
     }
 
     public String selectColumn(String sql, String returnColumnName, Context ctx) {
-        try (Connection connection = (Connection) DriverManager.getConnection(URL, USER, getPassword(ctx))) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, getPassword(ctx))) {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
