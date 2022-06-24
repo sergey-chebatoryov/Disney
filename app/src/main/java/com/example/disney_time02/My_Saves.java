@@ -104,58 +104,8 @@ public class My_Saves extends AppCompatActivity implements MyRecyclerViewAdapter
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.main:
-                Intent intent1 = new Intent(this, StartActivity.class);
-                startActivity(intent1);
-                break;
-            case R.id.search:
-                Intent intent2 = new Intent(this, Movie_Search.class);
-                startActivity(intent2);
-                break;
-            case R.id.games:
-                Intent intent3 = new Intent(this, MINI_Games.class);
-                startActivity(intent3);
-                break;
-            case R.id.invite:
-                Intent intent4 = new Intent(this, Invite_Friend.class);
-                startActivity(intent4);
-                break;
-            case R.id.saving:
-                Intent intent5 = new Intent(this, My_Saves.class);
-                startActivity(intent5);
-                break;
-            case R.id.music:
-                Intent intent6 = new Intent(this, Music.class);
-                startActivity(intent6);
-                break;
-            case R.id.instructions:
-                Intent intent7 = new Intent(this, Instructions.class);
-                startActivity(intent7);
-                break;
-            case R.id.about:
-                Intent intent8 = new Intent(this, About.class);
-                startActivity(intent8);
-                break;
-            case R.id.exit:
-                AlertDialog dialog = yesNo();
-                dialog.show();
-                break;
-        }
-        return true;
-    }
-
-    public AlertDialog yesNo() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirm");
-        builder.setMessage("Are you sure?");
-        builder.setPositiveButton("yes", (dialog, which) -> {
-            finish();
-            finishAffinity();
-            dialog.dismiss();
-        });
-        builder.setNegativeButton("no", (dialog, which) -> dialog.dismiss());
-        return builder.create();
+        MenuClass menuClass = new MenuClass(this);
+        return menuClass.getItemSelected(item);
     }
 
     public void goBack(View view) {

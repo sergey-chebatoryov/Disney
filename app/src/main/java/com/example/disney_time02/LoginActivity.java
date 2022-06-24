@@ -146,37 +146,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.main_start:
-                Intent intent1 = new Intent(this, MainActivity.class);
-                startActivity(intent1);
-                break;
-            case R.id.login:
-                Intent intent2 = new Intent(this, LoginActivity.class);
-                startActivity(intent2);
-                break;
-            case R.id.reg:
-                Intent intent3 = new Intent(this, RegistrationActivity.class);
-                startActivity(intent3);
-                break;
-            case R.id.exit:
-                AlertDialog dialog = yesNo();
-                dialog.show();
-                break;
-        }
-        return true;
-    }
-
-    public AlertDialog yesNo() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirm");
-        builder.setMessage("Are you sure?");
-        builder.setPositiveButton("yes", (dialog, which) -> {
-            finish();
-            finishAffinity();
-            dialog.dismiss();
-        });
-        builder.setNegativeButton("no", (dialog, which) -> dialog.dismiss());
-        return builder.create();
+        ShortMenuClass shortMenuClass = new ShortMenuClass(this);
+        return shortMenuClass.getItemSelected(item);
     }
 }
