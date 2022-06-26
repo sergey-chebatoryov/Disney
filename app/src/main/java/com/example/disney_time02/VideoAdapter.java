@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
-    private final List<com.example.disney_time02.youTubeVideos> youtubeVideoList;
-    VideoAdapter(List<com.example.disney_time02.youTubeVideos> youtubeVideoList) {
+    private final List<YouTubeVideos> youtubeVideoList;
+    VideoAdapter(List<YouTubeVideos> youtubeVideoList) {
         this.youtubeVideoList = youtubeVideoList;
     }
     @NonNull

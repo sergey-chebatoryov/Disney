@@ -19,42 +19,48 @@
         android:layout_margin="10dp"/>
 
     <TableLayout
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left">
+            tools:ignore="RtlHardcoded">
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="200dp"
-                android:layout_height="300dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 app:srcCompat="@drawable/walt" />
             <TextView
-                android:layout_width="200dp"
-                android:layout_height="300dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/reg"
-                android:text="\n#Walt Disney did not draw Mickey Mouse.\n#Walt was the original voice of Mickey Mouse.\n#Walt's brother, Roy, started as a vacuum salesman.\n#Walt had a private getaway on Main Street U.S.A."
+                android:layout_weight="1"
+                android:text="#Walt Disney did not draw Mickey Mouse.\n#Walt was the original voice of Mickey Mouse.\n#Walt's brother, Roy, started as a vacuum salesman.\n#Walt had a private getaway on Main Street U.S.A."
                 android:textColor="#000000"
-                android:textSize="25dp" />
+                android:textSize="25sp" />
         </TableRow>
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left">
+            android:gravity="left"
+            tools:ignore="RtlHardcoded">
 
             <TextView
-                android:layout_width="200dp"
-                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:fontFamily="@font/reg"
                 android:text="\n#Mickey started out as a rabbit.\n#Mickey is married.\n#Mickey's first words were: “Hot dogs!”\n#His magic helped turned children into stars.\n#Mickey doesn't wear white gloves for fashion."
                 android:textColor="#000000"
                 android:textSize="25dp" />
 
             <ImageView
+                android:layout_weight="1"
                 android:id="@+id/imageView3"
-                android:layout_width="200dp"
-                android:layout_height="300dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:srcCompat="@drawable/mickey" />
         </TableRow>
     </TableLayout>

@@ -22,7 +22,7 @@ public class My_Saves extends AppCompatActivity implements MyRecyclerViewAdapter
     RecyclerView recyclerView;
     MyRecyclerViewAdapter adapter;
     Map<Integer, Map<String, String>> moviesMap;
-    ArrayList<String> rowsString;
+    ArrayList<DataModel> rowsString;
     AlertDialog dialog;
     private Integer position;
 
@@ -53,7 +53,7 @@ public class My_Saves extends AppCompatActivity implements MyRecyclerViewAdapter
         moviesMap = mysqlConnect.select("SELECT b.id, a.name, a.genre, trailer FROM movies a JOIN usersmovie b ON b.id=a.id where b.name='" + LoginActivity.userName + "'", this);
         Collection<Map<String, String>> rows = moviesMap.values();
         for (Map<String, String> row : rows) {
-            rowsString.add(row.get("name") + " " + row.get("trailer"));
+            rowsString.add(new DataModel(row.get("name"), row.get("trailer")));
         }
         adapter.notifyItemRangeInserted(0, rowsString.size());
         dialog.dismiss();

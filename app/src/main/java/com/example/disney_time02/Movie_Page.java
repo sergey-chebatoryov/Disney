@@ -16,7 +16,7 @@ import java.util.Vector;
 
 public class Movie_Page extends AppCompatActivity {
     RecyclerView recyclerView;
-    Vector<youTubeVideos> youtubeVideos = new Vector<>();
+    Vector<YouTubeVideos> youtubeVideos = new Vector<>();
     private String movieId;
     private String movieName;
     boolean switchChecked;
@@ -65,13 +65,10 @@ public class Movie_Page extends AppCompatActivity {
     }
 
     private void prepareMovieView() {
-
         String movieUrl = getIntent().getExtras().getString("url", "");
-
         String url = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" +
                 getId(movieUrl) + "\" frameborder=\"0\" allowfullscreen></iframe>";
-
-        youtubeVideos.add(new youTubeVideos(url));
+        youtubeVideos.add(new YouTubeVideos(url));
         VideoAdapter videoAdapter = new VideoAdapter(youtubeVideos);
         recyclerView.setAdapter(videoAdapter);
         dialog.dismiss();
@@ -92,7 +89,7 @@ public class Movie_Page extends AppCompatActivity {
         if (switchChecked) {
             sql = "insert into usersmovie (name, id) values ('" + LoginActivity.userName + "', " + movieId + ")";
         } else {
-            sql = " delete from usersmovie where name='" + LoginActivity.userName + "' and id=" + movieId;
+            sql = "delete from usersmovie where name='" + LoginActivity.userName + "' and id=" + movieId;
         }
         MysqlConnect mysqlConnect = new MysqlConnect();
         if (mysqlConnect.executeSql(sql, this) > 0) {

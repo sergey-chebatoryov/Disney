@@ -18,7 +18,7 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
     RecyclerView recyclerView;
     MyRecyclerViewAdapter adapter;
     Map<Integer, Map<String, String>> moviesMap;
-    ArrayList<String> rowsString;
+    ArrayList<DataModel> rowsString;
     AlertDialog dialog;
     private Integer position;
 
@@ -50,7 +50,7 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
         moviesMap = mysqlConnect.select("select * from movies where genre='" + genre + "'", this);
         Collection<Map<String, String>> rows = moviesMap.values();
         for (Map<String, String> row : rows) {
-            rowsString.add(row.get("name") + " " + row.get("trailer"));
+            rowsString.add(new DataModel(row.get("name"), row.get("trailer")));
         }
         adapter.notifyItemRangeInserted(0, rowsString.size());
         dialog.dismiss();
@@ -77,7 +77,6 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
 
         dialog.dismiss();
     }
-
 
     @Override
     public void onItemClick(View view, int position) {

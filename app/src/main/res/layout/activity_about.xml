@@ -22,7 +22,8 @@
         android:fontFamily="@font/reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
+        android:layout_margin="20dp"
+        android:gravity="start"
         android:text="HEY my friend, my name is Lilia \nand here I am to tell you about- \nDisney time which is the perfect application if you want to know what movie to choose!
 \nA collection of the best Disney movies trailers as well as mini games for fun!
 \nYou just choose a genre and a list of movies pops up for you to watch the trailer and decide which one to watch!

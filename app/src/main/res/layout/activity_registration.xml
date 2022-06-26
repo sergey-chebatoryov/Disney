@@ -23,7 +23,7 @@
         android:layout_gravity="center"
         android:columnCount="2">
         <TextView
-            android:layout_gravity="top"
+            android:layout_gravity="center"
             android:fontFamily="@font/writing"
             android:textSize="30dp"
             android:textStyle="bold"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:textSize="35dp"/>
         <TextView
-            android:layout_gravity="top"
+            android:layout_gravity="center"
             android:textStyle="bold"
             android:fontFamily="@font/writing"
             android:textSize="30dp"
