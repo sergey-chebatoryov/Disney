@@ -25,6 +25,9 @@
         android:id="@+id/about"
         android:title="About the app" />
     <item
+        android:id="@+id/logout"
+        android:title="Logout"/>
+    <item
         android:id="@+id/exit"
         android:title="Exit"/>
 </menu>

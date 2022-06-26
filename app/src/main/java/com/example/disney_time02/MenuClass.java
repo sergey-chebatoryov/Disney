@@ -42,9 +42,13 @@ public class MenuClass extends AppCompatActivity {
             case R.id.about:
                 intent = new Intent(context, About.class);
                 break;
+            case R.id.logout:
+                AlertDialog dialogLogout = yesNo(false);
+                dialogLogout.show();
+                break;
             case R.id.exit:
-                AlertDialog dialog = yesNo();
-                dialog.show();
+                AlertDialog dialogExit = yesNo(true);
+                dialogExit.show();
                 break;
 
         }
@@ -55,18 +59,24 @@ public class MenuClass extends AppCompatActivity {
     }
 
 
-    public AlertDialog yesNo() {
+    public AlertDialog yesNo(boolean isExit) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirm");
         builder.setMessage("Are you sure?");
         builder.setPositiveButton("yes", (dialog, which) -> {
-            ((Activity) context).finish();
-            ((Activity) context).finishAffinity();
+            if (isExit) {
+                exit();
+            } else {
+                logout();
+            }
             dialog.dismiss();
-//            logout();
-        });
-        builder.setNegativeButton("no", (dialog, which) -> dialog.dismiss());
+        }).setNegativeButton("no", (dialog, which) -> dialog.dismiss());
         return builder.create();
+    }
+
+    private void exit() {
+        ((Activity) context).finish();
+        ((Activity) context).finishAffinity();
     }
 
     public void logout() {
@@ -76,7 +86,7 @@ public class MenuClass extends AppCompatActivity {
                 .putString("passwordHash", "")
                 .apply();
         //Return to login page with flag as new task
-      context.startActivity(new Intent(context, MainActivity.class)
+        context.startActivity(new Intent(context, MainActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 }

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultSelectUser != null && Objects.equals(passwordHash, resultSelectUser)) {
                 LoginActivity.userName = userName;
                 Intent intent = new Intent(this, StartActivity.class);
-                startActivity(intent);
+                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             }
         }
         dialog.dismiss();
