@@ -69,7 +69,7 @@ public class MysqlConnect {
             return statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            return e.getErrorCode();
         }
-        return 0;
     }
 }

@@ -16,6 +16,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mysql.jdbc.MysqlErrorNumbers;
+
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
     private SQLiteDatabase database;
     private dbHelper dbHelper;
@@ -69,23 +71,30 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             data[0] = this.etName.getText().toString();
             data[1] = this.etPassword.getText().toString();
             String encryptedPassword = Encryption.encrypt(data[1]);
-            this.etName.setText("");
             this.etPassword.setText("");
             MysqlConnect mysqlConnect = new MysqlConnect();
-            int insert = mysqlConnect.executeSql("insert into users (name, password) values ('"
+            int result = mysqlConnect.executeSql("insert into users (name, password) values ('"
                     + data[0] + "', '" + encryptedPassword + "')", this);
-            if (insert == 0) {
-                Toast.makeText(RegistrationActivity.this, "User does not created. Try Again", Toast.LENGTH_SHORT).show();
-            } else {
-                LoginActivity.userName = data[0];
-                Toast.makeText(this, "You sign up", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-            }
+            processSqlResult(data[0], result);
         } else {
             Toast.makeText(RegistrationActivity.this, "Try Again", Toast.LENGTH_SHORT).show();
         }
         dialog.dismiss();
+    }
+
+    private void processSqlResult(String name, int result) {
+        if (result == 1) {//new user inserted
+            LoginActivity.userName = name;
+            Toast.makeText(this, "You sign up", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        } else if (result == MysqlErrorNumbers.ER_DUP_ENTRY) {//Duplication error
+            Toast.makeText(RegistrationActivity.this, "User already exists. Try Again", Toast.LENGTH_SHORT).show();
+        } else if (result == MysqlErrorNumbers.ER_ACCESS_DENIED_ERROR) {//Access denied to database
+            Toast.makeText(RegistrationActivity.this, "Access to database is denied. Call to administrator", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(RegistrationActivity.this, "User does not created. Try Again", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
