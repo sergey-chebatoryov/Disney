@@ -81,9 +81,9 @@ public class Movie_fy extends AppCompatActivity implements MyRecyclerViewAdapter
     @Override
     public void onItemClick(View view, int position) {
         this.position = position;
+        dialog.setTitle("Loading movie...");
         dialog.show();
         new Thread(this::checkMovie).start();
-
     }
 
     public void goBack(View view) {
