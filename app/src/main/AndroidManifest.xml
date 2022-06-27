@@ -15,6 +15,7 @@
             android:exported="false" />
         <activity
             android:name=".Movie_Page"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".R_food"
