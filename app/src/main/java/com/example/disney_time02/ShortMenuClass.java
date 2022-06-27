@@ -19,16 +19,13 @@ public class ShortMenuClass  extends AppCompatActivity {
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.main_start:
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                intent = new Intent(context, MainActivity.class);
                 break;
             case R.id.login:
-                intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
+                intent = new Intent(context, LoginActivity.class);
                 break;
             case R.id.reg:
-                intent = new Intent(this, RegistrationActivity.class);
-                startActivity(intent);
+                intent = new Intent(context, RegistrationActivity.class);
                 break;
             case R.id.exit:
                 AlertDialog dialog = yesNo();
