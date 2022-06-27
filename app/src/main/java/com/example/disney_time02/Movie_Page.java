@@ -69,7 +69,7 @@ public class Movie_Page extends AppCompatActivity {
         String url = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" +
                 getId(movieUrl) + "\" frameborder=\"0\" allowfullscreen></iframe>";
         youtubeVideos.add(new YouTubeVideos(url));
-        VideoAdapter videoAdapter = new VideoAdapter(youtubeVideos);
+        VideoAdapter videoAdapter = new VideoAdapter(youtubeVideos, this);
         recyclerView.setAdapter(videoAdapter);
         dialog.dismiss();
     }
