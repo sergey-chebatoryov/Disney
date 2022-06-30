@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Invite_Friend extends AppCompatActivity/* implements AdapterView.OnItemSelectedListener */{
-    private Button btnMessage;
     private EditText edNumber;
     private Spinner spinner;
     AlertDialog dialog;
@@ -37,7 +36,7 @@ public class Invite_Friend extends AppCompatActivity/* implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_friend);
         setActionBar("");
-        this.btnMessage = findViewById(R.id.message);
+        Button btnMessage = findViewById(R.id.message);
         this.edNumber = findViewById(R.id.number);
 
         spinner = findViewById(R.id.movie);
@@ -50,16 +49,13 @@ public class Invite_Friend extends AppCompatActivity/* implements AdapterView.On
                 .setView(R.layout.layout_loading_dialog)
                 .setTitle("Searching movies...").create();
 
-        btnMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((String.valueOf(edNumber.getText()).equals("")) || (spinner.getSelectedItem().equals(""))) {
-                    Toast.makeText(getApplicationContext(), "please insert phone number or movie's name!", Toast.LENGTH_LONG).show();
-                } else {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.fromParts("sms", String.valueOf(edNumber.getText()), null)).
-                            putExtra("sms_body", write()));
-                }
+        btnMessage.setOnClickListener(v -> {
+            if ((String.valueOf(edNumber.getText()).equals("")) || (spinner.getSelectedItem().equals(""))) {
+                Toast.makeText(getApplicationContext(), "please insert phone number or movie's name!", Toast.LENGTH_LONG).show();
+            } else {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.fromParts("sms", String.valueOf(edNumber.getText()), null)).
+                        putExtra("sms_body", write()));
             }
         });
 
