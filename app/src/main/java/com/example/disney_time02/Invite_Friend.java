@@ -7,16 +7,30 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Invite_Friend extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+public class Invite_Friend extends AppCompatActivity/* implements AdapterView.OnItemSelectedListener */{
     private Button btnMessage;
-    private EditText edNumber, edMovie;
+    private EditText edNumber;
+    private Spinner spinner;
+    AlertDialog dialog;
+    List<String> rowStrings;
+    ArrayAdapter<String> adapter;
+    Map<Integer, Map<String, String>> moviesMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +39,21 @@ public class Invite_Friend extends AppCompatActivity {
         setActionBar("");
         this.btnMessage = findViewById(R.id.message);
         this.edNumber = findViewById(R.id.number);
-        this.edMovie = findViewById(R.id.movie);
+
+        spinner = findViewById(R.id.movie);
+        rowStrings = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, rowStrings);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        dialog = new AlertDialog.Builder(this)
+                .setView(R.layout.layout_loading_dialog)
+                .setTitle("Searching movies...").create();
+
         btnMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((String.valueOf(edNumber.getText()).equals("")) || (String.valueOf(edMovie.getText()).equals(""))) {
+                if ((String.valueOf(edNumber.getText()).equals("")) || (spinner.getSelectedItem().equals(""))) {
                     Toast.makeText(getApplicationContext(), "please insert phone number or movie's name!", Toast.LENGTH_LONG).show();
                 } else {
                     startActivity(new Intent(Intent.ACTION_VIEW,
@@ -38,11 +62,29 @@ public class Invite_Friend extends AppCompatActivity {
                 }
             }
         });
+
+        dialog.show();
+        new Thread(this::selectMovie).start();
     }
 
+    private void selectMovie() {
+        MysqlConnect mysqlConnect = new MysqlConnect();
+        moviesMap = mysqlConnect.select("SELECT b.id, a.name, a.genre, trailer FROM movies a JOIN usersmovie b ON b.id=a.id where b.name='" + LoginActivity.userName + "'", this);
+        Collection<Map<String, String>> rows = moviesMap.values();
+        for (Map<String, String> row : rows) {
+            rowStrings.add(row.get("name"));
+        }
+        this.runOnUiThread(() -> adapter.notifyDataSetChanged());
+
+        dialog.dismiss();
+    }
+
+
     public String write() {
-        String text = String.valueOf(edMovie.getText());
-        return ("Let's watch together " + '"' + text + '"' + ", which is a Disney movie!");
+        String text = spinner.getSelectedItem().toString();
+        Map<String, String> row = moviesMap.get(spinner.getSelectedItemPosition());
+        String url = Objects.requireNonNull(row).get("trailer");
+        return ("Let's watch together " + '"' + text + '"' + ", which is a Disney movie! " + url);
 
     }
 
