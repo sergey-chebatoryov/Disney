@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.disney_time02"
+        applicationId "com.example.disney"
         minSdk 26
         targetSdk 32
         versionCode 1
