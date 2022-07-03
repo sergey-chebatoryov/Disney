@@ -40,6 +40,7 @@
                 android:id="@+id/number"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
+                android:onClick="goContacts"
                 android:hint="number"
                 android:inputType="number"
                 android:padding="10dp"
@@ -60,7 +61,6 @@
 
             <Spinner
                 android:id="@+id/movie"
-                android:hint="movie"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
         </TableRow>
