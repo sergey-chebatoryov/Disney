@@ -13,8 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MysqlConnect {
-    private static final String URL = "jdbc:mysql://remotemysql.com:3306/tXlqRJzGk9";
-    private static final String USER = "tXlqRJzGk9";
+//    private static final String URL = "jdbc:mysql://db4free.net:3306/liliadb";
+    private static final String URL = "jdbc:mysql://sql.freedb.tech:3306/freedb_dysneydb";
+    private static final String USER = "freedb_sergey";
 
     public Map<Integer, Map<String, String>> select(String sql, Context ctx) {
         Map<Integer, Map<String, String>> resultSelect = new HashMap<>();
